@@ -4,17 +4,18 @@ MAINTAINER Sunidhi Sharma <sunidhi.sharma@sap.com>
 # Install wget
 RUN apt-get install wget
 
+ENV CPUS $(grep -c ^processor /proc/cpuinfo)
+
 # Install PostgreSQL 9.4
 RUN DEBIAN_FRONTEND=noninteractive \
     cd /tmp && \
-    wget https://www.postgresql.org/media/keys/ACCC4CF8.asc && \
-    apt-key add ACCC4CF8.asc && \
-    echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" | tee /etc/apt/sources.list.d/pgdg.list && \
-    apt-get update && \
-    apt-get install -y --force-yes \
-    postgresql-9.4 postgresql-client-9.4 postgresql-contrib-9.4 runit && \
+    wget https://ftp.postgresql.org/pub/source/v9.4.14/postgresql-9.4.14.tar.gz && \
+    tar xfv postgresql-9.4.14.tar.gz && \
+    cd postgresql-9.4.14 && \
+    ./configure --with-openssl --with-libxml && \
+    make -j${CPUS} world && make install-world && \
     service postgresql stop && \
-    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ## remove wget
 RUN apt-get remove wget -y
