@@ -10,11 +10,11 @@ ENV CPUS $(grep -c ^processor /proc/cpuinfo)
 RUN DEBIAN_FRONTEND=noninteractive \
     cd /tmp && \
     wget https://ftp.postgresql.org/pub/source/v9.4.14/postgresql-9.4.14.tar.gz && \
-    tar xfv postgresql-9.4.14.tar.gz 
+    tar xfv postgresql-9.4.14.tar.gz && \
+    cd postgresql-9.4.14 && \
+    ./configure --with-openssl --with-libxml && \
+    make -j${CPUS} world && make install-world 
     #&& \
-    #cd postgresql-9.4.14 && \
-    #./configure --with-openssl --with-libxml && \
-    #make -j${CPUS} world && make install-world && \
     #service postgresql stop && \
     #rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
