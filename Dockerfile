@@ -12,10 +12,11 @@ RUN DEBIAN_FRONTEND=noninteractive \
     wget https://ftp.postgresql.org/pub/source/v9.4.14/postgresql-9.4.14.tar.gz && \
     tar xfv postgresql-9.4.14.tar.gz && \
     cd postgresql-9.4.14 && \
-    sudo apt-get install libssl-dev && \
-    ./configure --with-openssl --without-readline --without-zlib && \
+    sudo apt-get -y install libssl-dev && \
+    sudo apt-get install libreadline6 libreadline6-dev && \
+    mkdir -p /usr/lib/postgresql/9.4/ && \
+    ./configure --with-openssl --prefix=/usr/lib/postgresql/9.4/ && \
     make -j${CPUS} world && make install-world && \
-    service postgresql stop && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 #RUN ./configure --with-openssl --with-libxml
