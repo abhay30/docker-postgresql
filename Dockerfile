@@ -4,7 +4,7 @@ MAINTAINER Sunidhi Sharma <sunidhi.sharma@sap.com>
 # Install wget
 RUN apt-get install wget
 
-ENV CPUS $(grep -c ^processor /proc/cpuinfo)
+#ENV CPUS $(grep -c ^processor /proc/cpuinfo)
 
 # Install PostgreSQL 9.4
 RUN DEBIAN_FRONTEND=noninteractive \
@@ -20,6 +20,8 @@ RUN DEBIAN_FRONTEND=noninteractive \
     pwd && \
     ls -l && \
     ./configure --with-openssl --prefix=/usr/lib/postgresql/9.4/ && \
+    export CPUS=$(grep -c ^processor /proc/cpuinfo) && \
+    echo "Number of CPUS >>>> $CPUS" && \
     make -j${CPUS} world && make install-world && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 #RUN sudo apt-get install libssl-dev -y
