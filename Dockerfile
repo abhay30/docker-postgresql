@@ -15,6 +15,8 @@ RUN DEBIAN_FRONTEND=noninteractive \
 RUN sudo apt-get install libssl-dev -y
 RUN sudo apt-get install libreadline6 libreadline6-dev
 RUN mkdir -p /usr/lib/postgresql/9.4/
+RUN pwd
+RUN ls -l
 RUN ./configure --with-openssl --prefix=/usr/lib/postgresql/9.4/
 RUN make -j${CPUS} world && make install-world
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
