@@ -12,7 +12,7 @@ echo "{\"hosthame\":\"localhost\",\"host\":\"localhost\",\"port\":5432,\"usernam
 echo /config/credentials.json
 
 
-#cd /var/lib/postgresql
+##cd /var/lib/postgresql
 # Start PostgreSQL service
 sudo -u postgres /usr/lib/postgresql/9.4/bin/postgres -D $DATA_DIR &
 

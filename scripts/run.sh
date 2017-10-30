@@ -2,7 +2,7 @@
 
 #cd /var/lib/postgresql
 
-## Initialize data directory
+### Initialize data directory
 DATA_DIR=/data
 
 export POSTGRESQL_USER=postgres
