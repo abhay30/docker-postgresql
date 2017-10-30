@@ -3,13 +3,7 @@ USER=${POSTGRES_USERNAME:-pgadmin}
 PASS=${POSTGRES_PASSWORD:-$(pwgen -s -1 16)}
 DB=${POSTGRES_DBNAME:-}
 EXTENSIONS=${POSTGRES_EXTENSIONS:-}
-DATA_DIR=/data
-
-echo First run of PostgreSQL, setting up users...
-
-mkdir -p /config
-echo "{\"hosthame\":\"localhost\",\"host\":\"localhost\",\"port\":5432,\"username\":\"$USER\",\"password\":\"$PASS\",\"dbname\":\"$DB\",\"uri\":\"postgres://$USER:$PASS@localhost:5432/$DB\"}" > /config/credentials.json
-echo /config/credentials.json
+DATA_DIR=/data/postgres
 
 
 ##cd /var/lib/postgresql
