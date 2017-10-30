@@ -2,7 +2,8 @@ FROM srinivasachalla/docker-ubuntu
 MAINTAINER Sunidhi Sharma <sunidhi.sharma@sap.com>
 
 # Install wget
-#RUN apt-get install wget
+RUN apt-get update && \
+    apt-get install wget
 
 #ENV CPUS $(grep -c ^processor /proc/cpuinfo)
 
